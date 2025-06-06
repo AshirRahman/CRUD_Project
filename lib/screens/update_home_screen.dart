@@ -1,20 +1,19 @@
 import 'package:android_projects/screens/add_new_todo_screen.dart';
-import 'package:android_projects/screens/update_home_screen.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class UpdateHomeScreen extends StatefulWidget {
+  const UpdateHomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() =>
-      _HomeScreenState();
+  State<UpdateHomeScreen> createState() =>
+      _UpdateHomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _UpdateHomeScreenState extends State<UpdateHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('todo list')),
+      appBar: AppBar(title: Text('update todo list')),
       body: ListView.builder(
         itemCount: 3,
         itemBuilder: (context, index) {
@@ -23,28 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
             subtitle: Text('description'),
             trailing: Wrap(
               children: [
-                IconButton(
-                  onPressed:
-                      _showChangeStatusDialog,
-                  icon: Icon(Icons.delete),
-                ),
-                IconButton(
-                  onPressed:
-                      _showChangeStatusDialog,
-                  icon: Icon(Icons.edit),
-                ),
+                IconButton(onPressed: _showChangeStatusDialog, icon: Icon(Icons.delete)),
+                IconButton(onPressed: _showChangeStatusDialog, icon: Icon(Icons.edit)),
               ],
             ),
             leading: Icon(Icons.person),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      const UpdateHomeScreen(),
-                ),
-              );
-            }, // s
+            // s
           );
         },
       ),
@@ -54,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  const AddNewTodoScreen(),
+              const AddNewTodoScreen(),
             ),
           );
         },
@@ -63,28 +46,35 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _showChangeStatusDialog() {
+  void _showChangeStatusDialog(){
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text('change status'),
           content: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize:
+            MainAxisSize.min,
             children: [
-              ListTile(title: Text('idle')),
+              ListTile(
+                title: Text('idle'),
+              ),
               Divider(
                 color: Colors.black,
                 thickness: 1,
               ),
               ListTile(
-                title: Text('in progress'),
+                title: Text(
+                  'in progress',
+                ),
               ),
               Divider(
                 color: Colors.black,
                 thickness: 1,
               ),
-              ListTile(title: Text('done')),
+              ListTile(
+                title: Text('done'),
+              ),
             ],
           ),
         );
