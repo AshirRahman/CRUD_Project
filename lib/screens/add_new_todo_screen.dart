@@ -4,19 +4,13 @@ class AddNewTodoScreen extends StatefulWidget {
   const AddNewTodoScreen({super.key});
 
   @override
-  State<AddNewTodoScreen> createState() =>
-      _AddNewTodoScreenState();
+  State<AddNewTodoScreen> createState() => _AddNewTodoScreenState();
 }
 
-class _AddNewTodoScreenState
-    extends State<AddNewTodoScreen> {
-  final TextEditingController _titleTEController =
-      TextEditingController();
-  final TextEditingController
-  _descriptionController =
-      TextEditingController();
-  final GlobalKey<FormState> _formKey =
-      GlobalKey<FormState>();
+class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
+  final TextEditingController _titleTEController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +19,7 @@ class _AddNewTodoScreenState
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('add new todo screen'),
-        ),
+        appBar: AppBar(title: Text('add new todo screen')),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -40,12 +32,10 @@ class _AddNewTodoScreenState
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
                       labelText: 'title',
-                      hintText:
-                          'write your todo title',
+                      hintText: 'write your todo title',
                     ),
                     validator: (String? value) {
-                      if (value == null ||
-                          value.trim().isEmpty) {
+                      if (value == null || value.trim().isEmpty) {
                         return 'enter you title';
                       }
                       return null;
@@ -59,12 +49,10 @@ class _AddNewTodoScreenState
                     maxLines: 3,
                     decoration: InputDecoration(
                       labelText: 'description',
-                      hintText:
-                          'write your todo description',
+                      hintText: 'write your todo description',
                     ),
                     validator: (String? value) {
-                      if (value == null ||
-                          value.trim().isEmpty) {
+                      if (value == null || value.trim().isEmpty) {
                         return 'enter your description';
                       }
                       return null;
@@ -73,12 +61,8 @@ class _AddNewTodoScreenState
                   SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
-                      // print(
-                      //   'clicked submit button',
-                      // );
-                      if (_formKey.currentState!.validate()){
-
-                      }
+                      print('clicked submit button');
+                      if (_formKey.currentState!.validate()) {}
                     },
                     child: Text('submit'),
                   ),

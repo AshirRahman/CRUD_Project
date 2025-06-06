@@ -5,8 +5,7 @@ class UpdateHomeScreen extends StatefulWidget {
   const UpdateHomeScreen({super.key});
 
   @override
-  State<UpdateHomeScreen> createState() =>
-      _UpdateHomeScreenState();
+  State<UpdateHomeScreen> createState() => _UpdateHomeScreenState();
 }
 
 class _UpdateHomeScreenState extends State<UpdateHomeScreen> {
@@ -22,8 +21,14 @@ class _UpdateHomeScreenState extends State<UpdateHomeScreen> {
             subtitle: Text('description'),
             trailing: Wrap(
               children: [
-                IconButton(onPressed: _showChangeStatusDialog, icon: Icon(Icons.delete)),
-                IconButton(onPressed: _showChangeStatusDialog, icon: Icon(Icons.edit)),
+                IconButton(
+                  onPressed: _showChangeStatusDialog,
+                  icon: Icon(Icons.delete),
+                ),
+                IconButton(
+                  onPressed: _showChangeStatusDialog,
+                  icon: Icon(Icons.edit),
+                ),
               ],
             ),
             leading: Icon(Icons.person),
@@ -35,10 +40,7 @@ class _UpdateHomeScreenState extends State<UpdateHomeScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) =>
-              const AddNewTodoScreen(),
-            ),
+            MaterialPageRoute(builder: (context) => const AddNewTodoScreen()),
           );
         },
         child: Icon(Icons.add),
@@ -46,35 +48,20 @@ class _UpdateHomeScreenState extends State<UpdateHomeScreen> {
     );
   }
 
-  void _showChangeStatusDialog(){
+  void _showChangeStatusDialog() {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text('change status'),
           content: Column(
-            mainAxisSize:
-            MainAxisSize.min,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              ListTile(
-                title: Text('idle'),
-              ),
-              Divider(
-                color: Colors.black,
-                thickness: 1,
-              ),
-              ListTile(
-                title: Text(
-                  'in progress',
-                ),
-              ),
-              Divider(
-                color: Colors.black,
-                thickness: 1,
-              ),
-              ListTile(
-                title: Text('done'),
-              ),
+              ListTile(title: Text('idle')),
+              Divider(color: Colors.black, thickness: 1),
+              ListTile(title: Text('in progress')),
+              Divider(color: Colors.black, thickness: 1),
+              ListTile(title: Text('done')),
             ],
           ),
         );

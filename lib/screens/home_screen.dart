@@ -6,8 +6,7 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() =>
-      _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -24,13 +23,11 @@ class _HomeScreenState extends State<HomeScreen> {
             trailing: Wrap(
               children: [
                 IconButton(
-                  onPressed:
-                      _showChangeStatusDialog,
+                  onPressed: _showChangeStatusDialog,
                   icon: Icon(Icons.delete),
                 ),
                 IconButton(
-                  onPressed:
-                      _showChangeStatusDialog,
+                  onPressed: _showChangeStatusDialog,
                   icon: Icon(Icons.edit),
                 ),
               ],
@@ -40,8 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      const UpdateHomeScreen(),
+                  builder: (context) => const UpdateHomeScreen(),
                 ),
               );
             }, // s
@@ -52,10 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  const AddNewTodoScreen(),
-            ),
+            MaterialPageRoute(builder: (context) => const AddNewTodoScreen()),
           );
         },
         child: Icon(Icons.add),
@@ -73,19 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(title: Text('idle')),
-              Divider(
-                height: 0,
-                color: Colors.black,
-                thickness: 1,
-              ),
-              ListTile(
-                title: Text('in progress'),
-              ),
-              Divider(
-                height: 0,
-                color: Colors.black,
-                thickness: 1,
-              ),
+              Divider(height: 0, color: Colors.black, thickness: 1),
+              ListTile(title: Text('in progress')),
+              Divider(height: 0, color: Colors.black, thickness: 1),
               ListTile(title: Text('done')),
             ],
           ),
