@@ -74,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               ListTile(title: Text('idle')),
               Divider(
+                height: 0,
                 color: Colors.black,
                 thickness: 1,
               ),
@@ -81,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 title: Text('in progress'),
               ),
               Divider(
+                height: 0,
                 color: Colors.black,
                 thickness: 1,
               ),
