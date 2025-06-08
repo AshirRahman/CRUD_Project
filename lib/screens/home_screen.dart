@@ -11,21 +11,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   final List<Todo> listOfTodo = [];
 
-  void _addTodo(Todo todo){
+  void _addTodo(Todo todo) {
     listOfTodo.add(todo);
     setState(() {});
   }
 
-  void _deleteTodo(int index){
+  void _deleteTodo(int index) {
     listOfTodo.removeAt(index);
     setState(() {});
   }
 
-  void _updateTodo(int index, Todo todo){
+  void _updateTodo(int index, Todo todo) {
     listOfTodo[index] = todo;
+    setState(() {});
+  }
+
+  void _updateTodoStatus(int index, TodoStatus status) {
+    listOfTodo[index].status = status;
     setState(() {});
   }
 
@@ -53,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icon(Icons.delete),
                   ),
                   IconButton(
-                    onPressed: _showChangeStatusDialog,
+                    onPressed: () => _showChangeStatusDialog(index),
                     icon: Icon(Icons.edit),
                   ),
                 ],
@@ -86,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _showChangeStatusDialog() {
+  void _showChangeStatusDialog(int index) {
     showDialog(
       context: context,
       builder: (context) {
@@ -95,11 +99,26 @@ class _HomeScreenState extends State<HomeScreen> {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ListTile(title: Text('idle')),
+              ListTile(
+                title: Text('idle'),
+                onTap: () {
+                  _updateTodoStatus(index, TodoStatus.idle);
+                },
+              ),
               Divider(height: 0, color: Colors.black, thickness: 1),
-              ListTile(title: Text('in progress')),
+              ListTile(
+                title: Text('in progress'),
+                onTap: () {
+                  _updateTodoStatus(index, TodoStatus.inProgress);
+                },
+              ),
               Divider(height: 0, color: Colors.black, thickness: 1),
-              ListTile(title: Text('done')),
+              ListTile(
+                title: Text('done'),
+                onTap: () {
+                  _updateTodoStatus(index, TodoStatus.done);
+                },
+              ),
             ],
           ),
         );
