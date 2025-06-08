@@ -1,3 +1,4 @@
+import 'package:android_projects/screens/todo.dart';
 import 'package:flutter/material.dart';
 
 class AddNewTodoScreen extends StatefulWidget {
@@ -62,7 +63,16 @@ class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
                   ElevatedButton(
                     onPressed: () {
                       print('clicked submit button');
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        Todo todo = Todo(
+                          title: _titleTEController.text.trim(),
+                          description: _descriptionController.text.trim(),
+                        );
+                        Navigator.pop(
+                          context,
+                          todo
+                        );
+                      }
                     },
                     child: Text('submit'),
                   ),

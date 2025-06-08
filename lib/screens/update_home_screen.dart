@@ -31,7 +31,7 @@ class _UpdateHomeScreenState extends State<UpdateHomeScreen> {
                 ),
               ],
             ),
-            leading: Icon(Icons.person),
+            leading: Text('status'),
             // s
           );
         },
