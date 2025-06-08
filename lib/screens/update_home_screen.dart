@@ -1,7 +1,11 @@
+import 'package:android_projects/screens/todo.dart';
 import 'package:flutter/material.dart';
 
 class UpdateHomeScreen extends StatefulWidget {
-  const UpdateHomeScreen({super.key});
+  const UpdateHomeScreen({super.key, required this.todo, required this.onUpdate});
+
+  final Todo todo;
+  final Function(Todo updatedTodo) onUpdate;
 
   @override
   State<UpdateHomeScreen> createState() => _UpdateHomeScreenState();
@@ -12,6 +16,13 @@ class _UpdateHomeScreenState extends State<UpdateHomeScreen> {
   final TextEditingController _descriptionTEController =
   TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState(){
+    super.initState();
+    _titleTEController.text = widget.todo.title;
+    _descriptionTEController.text = widget.todo.description;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +53,7 @@ class _UpdateHomeScreenState extends State<UpdateHomeScreen> {
                 TextFormField(
                   controller: _descriptionTEController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
+                  minLines: 1,
                   maxLines: 3,
                   decoration: const InputDecoration(
                       labelText: 'description',
@@ -56,7 +68,15 @@ class _UpdateHomeScreenState extends State<UpdateHomeScreen> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      Todo updatedTodo = Todo(
+                        title: _titleTEController.text.trim(),
+                        description: _descriptionTEController.text.trim(),
+                        status: widget.todo.status,
+                      );
+                      widget.onUpdate(updatedTodo);
+                      Navigator.pop(context);
+                    }
                   },
                   child: const Text('update'),
                 )

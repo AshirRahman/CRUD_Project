@@ -62,7 +62,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const UpdateHomeScreen(),
+                    builder: (context) => UpdateHomeScreen(
+                      todo: todo,
+                      onUpdate: (updatedTodo) {
+                        setState(() {
+                          listOfTodo[index] = updatedTodo;
+                        });
+                      },
+                    ),
                   ),
                 );
               }, // s
