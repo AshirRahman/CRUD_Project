@@ -23,11 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {});
   }
 
-  void _updateTodo(int index, Todo todo) {
-    listOfTodo[index] = todo;
-    setState(() {});
-  }
-
   void _updateTodoStatus(int index, TodoStatus status) {
     listOfTodo[index].status = status;
     setState(() {});

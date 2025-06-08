@@ -15,5 +15,4 @@ enum TodoStatus {
   idle,
   inProgress,
   done,
-
 }

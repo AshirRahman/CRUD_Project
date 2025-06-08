@@ -1,4 +1,3 @@
-import 'package:android_projects/screens/add_new_todo_screen.dart';
 import 'package:flutter/material.dart';
 
 class UpdateHomeScreen extends StatefulWidget {
@@ -9,63 +8,63 @@ class UpdateHomeScreen extends StatefulWidget {
 }
 
 class _UpdateHomeScreenState extends State<UpdateHomeScreen> {
+  final TextEditingController _titleTEController = TextEditingController();
+  final TextEditingController _descriptionTEController =
+  TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('update todo list')),
-      body: ListView.builder(
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text('title of todo'),
-            subtitle: Text('description'),
-            trailing: Wrap(
+      appBar: AppBar(
+        title: const Text('Update todo'),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
               children: [
-                IconButton(
-                  onPressed: _showChangeStatusDialog,
-                  icon: Icon(Icons.delete),
+                TextFormField(
+                  controller: _titleTEController,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: const InputDecoration(
+                      labelText: 'Title', hintText: 'Write your todo title'),
+                  validator: (String? value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Enter your title';
+                    }
+                    return null;
+                  },
                 ),
-                IconButton(
-                  onPressed: _showChangeStatusDialog,
-                  icon: Icon(Icons.edit),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _descriptionTEController,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  maxLines: 3,
+                  decoration: const InputDecoration(
+                      labelText: 'description',
+                      hintText: 'write your description here'),
+                  validator: (String? value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'enter your description';
+                    }
+                    return null;
+                  },
                 ),
+                const SizedBox(height: 24),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {}
+                  },
+                  child: const Text('update'),
+                )
               ],
             ),
-            leading: Text('status'),
-            // s
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AddNewTodoScreen()),
-          );
-        },
-        child: Icon(Icons.add),
-      ),
-    );
-  }
-
-  void _showChangeStatusDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('change status'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(title: Text('idle')),
-              Divider(color: Colors.black, thickness: 1),
-              ListTile(title: Text('in progress')),
-              Divider(color: Colors.black, thickness: 1),
-              ListTile(title: Text('done')),
-            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
