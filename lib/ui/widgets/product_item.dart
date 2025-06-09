@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 
+import '../../models/product.dart';
 import '../screens/update_product_screen.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({super.key});
+  const ProductItem({super.key, required this.product});
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-        leading: Image.network('https://www.nfm.com/dw/image/v2/BDFM_PRD/on/demandware.static/-/Sites-nfm-master-catalog/default/dwf6cc12b5/images/067/15/67153650-1.jpg?sw=1000&sh=1000&sm=fit'),
-        title: Text('Product Name'),
+        // leading: Image.network(product.imageUrl ?? ''),
+        title: Text(product.productName ?? ''),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Product Code: #code'),
-            Text('Quantity: 23'),
-            Text('Price: 3435'),
-            Text('Total Price: 202554')
+            Text('Product Code: ${product.productCode ?? ''}'),
+            Text('Quantity: ${product.quantity ?? ''}'),
+            Text('Price: ${product.unitPrice ?? ''}'),
+            Text('Total Price: ${product.totalPrice ?? ''}')
+            // Text('Created Date: ${product.createdDate ?? ''}'),
           ],
         ),
         trailing: Wrap(
