@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import '../../models/product.dart';
@@ -42,6 +41,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         ),
         floatingActionButton: FloatingActionButton(onPressed: () {
           Navigator.pushNamed(context, AddNewProductScreen.name);
+          setState(() {});
         },child: const Icon(Icons.add)),
       ),
     );
@@ -52,8 +52,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
     _getProductListInProgress = true;
     setState(() {});
     Response response = await get(Uri.parse('https://crud.teamrabbil.com/api/v1/ReadProduct'));
-    print(response.statusCode);
-    print(response.body);
+    // print(response.statusCode);
+    // print(response.body);
     if (response.statusCode == 200) {
       final decodedData = jsonDecode(response.body);
       for (Map<String, dynamic> p in decodedData['data']) {
