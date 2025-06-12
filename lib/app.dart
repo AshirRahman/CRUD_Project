@@ -1,3 +1,4 @@
+import 'package:android_projects/models/product.dart';
 import 'package:android_projects/ui/screens/add_new_product_screen.dart';
 import 'package:android_projects/ui/screens/product_list_screen.dart';
 import 'package:android_projects/ui/screens/update_product_screen.dart';
@@ -12,13 +13,19 @@ class CRUDApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // home: ProductListScreen(),
       initialRoute: '/',
-      routes: {
-        '/': (context) => ProductListScreen(),
-        AddNewProductScreen.name: (context) => AddNewProductScreen(),
-        UpdateProductScreen.name: (context) {
-          final Product product =
-          return UpdateProductScreen(product: null,);
+      onGenerateRoute: (RouteSettings settings){
+        late Widget widget;
+        if (settings.name == '/'){
+          widget = const ProductListScreen();
+        }else if (settings.name == AddNewProductScreen.name){
+          widget = const AddNewProductScreen();
+        }else if (settings.name == UpdateProductScreen.name){
+          final Product product = settings.arguments as Product;
+          widget = UpdateProductScreen(product: product);
         }
+        return MaterialPageRoute(builder: (context) {
+          return widget;
+        });
       },
     );
   }

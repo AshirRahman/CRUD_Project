@@ -21,6 +21,22 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
   final TextEditingController _quantityTEController = TextEditingController();
   final TextEditingController _totalPriceTEController = TextEditingController();
 
+  bool _updateProductInProgress = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _nameTEController.text = widget.product.productName ?? '';
+    _codeTEController.text = widget.product.productCode ?? '';
+    _imageUrlTEController.text = widget.product.imageUrl ?? '';
+    _unitPriceTEController.text = widget.product.unitPrice ?? '';
+    _quantityTEController.text = widget.product.quantity ?? '';
+    _totalPriceTEController.text = widget.product.totalPrice ?? '';
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -41,6 +57,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
 
   Widget _buildProductForm() {
     return Form(
+      //TODO: form validation
       child: Column(
         children: [
           TextFormField(
@@ -123,10 +140,19 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
           ),
           const SizedBox(height: 16),
           ElevatedButton(onPressed: () {
+            //TODO from validation
+            _updateProduct();
           }, child: Text('Update Product')),
         ],
       ),
     );
+  }
+
+  Future<void> _updateProduct() async{
+    _updateProductInProgress= true;
+    setState(() {
+    });
+
   }
 
   @override
