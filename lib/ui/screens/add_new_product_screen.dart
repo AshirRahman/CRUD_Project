@@ -77,7 +77,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
               return null;
             },
           ),
-          /*TextFormField(
+          TextFormField(
             controller: _imageUrlTEController,
             decoration: const InputDecoration(
               hintText: 'Image URL',
@@ -91,7 +91,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
               }
               return null;
             },
-          ),*/
+          ),
           TextFormField(
             controller: _unitPriceTEController,
             decoration: const InputDecoration(

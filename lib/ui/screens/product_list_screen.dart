@@ -26,29 +26,43 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: _getProductListInProgress == false,
-      replacement: const Center(child: CircularProgressIndicator()),
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Product List')),
-        body: ListView.builder(
-          itemCount: productList.length,
-          itemBuilder: (context, index) {
-            return ProductItem(
-              product: productList[index],
-            );
-          },
+    return RefreshIndicator(
+      onRefresh: () async {
+        _getProductList();
+      },
+      child: Visibility(
+        visible: _getProductListInProgress == false,
+        replacement: const Center(child: CircularProgressIndicator()),
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Product List'),
+            actions: [
+              IconButton(onPressed: () {
+                _getProductList();
+              }, icon: Icon(Icons.refresh))
+            ],
+          ),
+          body: ListView.builder(
+            itemCount: productList.length,
+            itemBuilder: (context, index) {
+              return ProductItem(
+                product: productList[index],
+
+              );
+            },
+          ),
+          floatingActionButton: FloatingActionButton(onPressed: () {
+            Navigator.pushNamed(context, AddNewProductScreen.name);
+            setState(() {});
+          },child: const Icon(Icons.add)),
         ),
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          Navigator.pushNamed(context, AddNewProductScreen.name);
-          setState(() {});
-        },child: const Icon(Icons.add)),
       ),
     );
   }
 
   //api call for getting product list
   Future<void> _getProductList() async {
+    productList.clear();
     _getProductListInProgress = true;
     setState(() {});
     Response response = await get(Uri.parse('https://crud.teamrabbil.com/api/v1/ReadProduct'));

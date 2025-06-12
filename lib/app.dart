@@ -15,7 +15,10 @@ class CRUDApp extends StatelessWidget {
       routes: {
         '/': (context) => ProductListScreen(),
         AddNewProductScreen.name: (context) => AddNewProductScreen(),
-        UpdateProductScreen.name: (context) => UpdateProductScreen(),
+        UpdateProductScreen.name: (context) {
+          final Product product =
+          return UpdateProductScreen(product: null,);
+        }
       },
     );
   }

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../models/product.dart';
+
 class UpdateProductScreen extends StatefulWidget {
-  const UpdateProductScreen({super.key});
+  const UpdateProductScreen({super.key, required this.product});
 
   static const String name = '/update-product';
+
+  final Product product;
 
   @override
   State<UpdateProductScreen> createState() => _UpdateProductScreenState();
