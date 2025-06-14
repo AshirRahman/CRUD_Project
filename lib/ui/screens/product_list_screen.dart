@@ -13,7 +13,6 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
-
   List<Product> productList = [];
 
   bool _getProductListInProgress = false;
@@ -37,24 +36,27 @@ class _ProductListScreenState extends State<ProductListScreen> {
           appBar: AppBar(
             title: const Text('Product List'),
             actions: [
-              IconButton(onPressed: () {
-                _getProductList();
-              }, icon: Icon(Icons.refresh))
+              IconButton(
+                onPressed: () {
+                  _getProductList();
+                },
+                icon: Icon(Icons.refresh),
+              ),
             ],
           ),
           body: ListView.builder(
             itemCount: productList.length,
             itemBuilder: (context, index) {
-              return ProductItem(
-                product: productList[index],
-
-              );
+              return ProductItem(product: productList[index]);
             },
           ),
-          floatingActionButton: FloatingActionButton(onPressed: () {
-            Navigator.pushNamed(context, AddNewProductScreen.name);
-            setState(() {});
-          },child: const Icon(Icons.add)),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.pushNamed(context, AddNewProductScreen.name);
+              setState(() {});
+            },
+            child: const Icon(Icons.add),
+          ),
         ),
       ),
     );
@@ -65,7 +67,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
     productList.clear();
     _getProductListInProgress = true;
     setState(() {});
-    Response response = await get(Uri.parse('https://crud.teamrabbil.com/api/v1/ReadProduct'));
+    Response response = await get(
+      Uri.parse('https://crud.teamrabbil.com/api/v1/ReadProduct'),
+    );
     // print(response.statusCode);
     // print(response.body);
     if (response.statusCode == 200) {
@@ -88,5 +92,4 @@ class _ProductListScreenState extends State<ProductListScreen> {
     _getProductListInProgress = false;
     setState(() {});
   }
-
 }
