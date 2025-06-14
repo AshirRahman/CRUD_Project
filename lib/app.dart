@@ -13,19 +13,21 @@ class CRUDApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // home: ProductListScreen(),
       initialRoute: '/',
-      onGenerateRoute: (RouteSettings settings){
+      onGenerateRoute: (RouteSettings settings) {
         late Widget widget;
-        if (settings.name == '/'){
+        if (settings.name == '/') {
           widget = const ProductListScreen();
-        }else if (settings.name == AddNewProductScreen.name){
+        } else if (settings.name == AddNewProductScreen.name) {
           widget = const AddNewProductScreen();
-        }else if (settings.name == UpdateProductScreen.name){
+        } else if (settings.name == UpdateProductScreen.name) {
           final Product product = settings.arguments as Product;
           widget = UpdateProductScreen(product: product);
         }
-        return MaterialPageRoute(builder: (context) {
-          return widget;
-        });
+        return MaterialPageRoute(
+          builder: (context) {
+            return widget;
+          },
+        );
       },
     );
   }
