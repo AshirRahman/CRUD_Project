@@ -41,7 +41,12 @@ class ProductItem extends StatelessWidget {
             },
             icon: const Icon(Icons.edit),
           ),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
+          IconButton(
+            onPressed: () {
+              //TODO delete product
+            },
+            icon: const Icon(Icons.delete),
+          ),
         ],
       ),
     );

@@ -22,7 +22,6 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _addNewProductInProgress = false;
 
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -54,9 +53,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
               labelText: 'Product Name',
             ),
             validator: (String? value) {
-              if (value == null || value
-                  .trim()
-                  .isEmpty) {
+              if (value == null || value.trim().isEmpty) {
                 return 'Please enter a product name';
               }
               return null;
@@ -69,9 +66,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
               labelText: 'Product Code',
             ),
             validator: (String? value) {
-              if (value == null || value
-                  .trim()
-                  .isEmpty) {
+              if (value == null || value.trim().isEmpty) {
                 return 'Please enter a product code';
               }
               return null;
@@ -84,9 +79,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
               labelText: 'Image URL',
             ),
             validator: (String? value) {
-              if (value == null || value
-                  .trim()
-                  .isEmpty) {
+              if (value == null || value.trim().isEmpty) {
                 return 'Please enter an image URL';
               }
               return null;
@@ -99,9 +92,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
               labelText: 'Unit Price',
             ),
             validator: (String? value) {
-              if (value == null || value
-                  .trim()
-                  .isEmpty) {
+              if (value == null || value.trim().isEmpty) {
                 return 'Please enter a unit price';
               }
               return null;
@@ -114,9 +105,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
               labelText: 'Quantity',
             ),
             validator: (String? value) {
-              if (value == null || value
-                  .trim()
-                  .isEmpty) {
+              if (value == null || value.trim().isEmpty) {
                 return 'Please enter a quantity';
               }
               return null;
@@ -129,9 +118,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
               labelText: 'Total Price',
             ),
             validator: (String? value) {
-              if (value == null || value
-                  .trim()
-                  .isEmpty) {
+              if (value == null || value.trim().isEmpty) {
                 return 'Please enter a total price';
               }
               return null;
@@ -140,14 +127,15 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
           const SizedBox(height: 16),
           Visibility(
             visible: _addNewProductInProgress == false,
-            replacement: const Center(
-              child: CircularProgressIndicator(),
+            replacement: const Center(child: CircularProgressIndicator()),
+            child: ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  _addNewProduct();
+                }
+              },
+              child: Text('Add Product'),
             ),
-            child: ElevatedButton(onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                _addNewProduct();
-              }
-            }, child: Text('Add Product')),
           ),
         ],
       ),
@@ -170,22 +158,23 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
     };
 
     Response response = await post(
-        Uri.parse('https://crud.teamrabbil.com/api/v1/CreateProduct'),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(requestBody));
+      Uri.parse('https://crud.teamrabbil.com/api/v1/CreateProduct'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(requestBody),
+    );
     print(response.statusCode);
     print(response.body);
     _addNewProductInProgress = false;
     setState(() {});
     if (response.statusCode == 200) {
       _clearTextFields();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('New product added'),),);
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('New product added')));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('New product add failed! Try again.'),),);
+        SnackBar(content: Text('New product add failed! Try again.')),
+      );
     }
     Navigator.pop(context, true);
   }
