@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 import '../../models/product.dart';
 
@@ -33,8 +36,6 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
     _unitPriceTEController.text = widget.product.unitPrice ?? '';
     _quantityTEController.text = widget.product.quantity ?? '';
     _totalPriceTEController.text = widget.product.totalPrice ?? '';
-
-
   }
 
   @override
@@ -139,20 +140,55 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
             },
           ),
           const SizedBox(height: 16),
-          ElevatedButton(onPressed: () {
-            //TODO from validation
-            _updateProduct();
-          }, child: Text('Update Product')),
+          Visibility(
+            visible: _updateProductInProgress == false,
+            replacement: const Center(child: CircularProgressIndicator()),
+            child: ElevatedButton(
+              onPressed: () {
+                //TODO from validation
+                _updateProduct();
+              },
+              child: Text('Update Product'),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Future<void> _updateProduct() async{
-    _updateProductInProgress= true;
-    setState(() {
-    });
+  Future<void> _updateProduct() async {
+    _updateProductInProgress = true;
+    setState(() {});
 
+    Map<String, dynamic> requestBody = {
+      "ProductName": _nameTEController.text.trim(),
+      "ProductCode": _codeTEController.text.trim(),
+      "Img": _imageUrlTEController.text.trim(),
+      "UnitPrice": _unitPriceTEController.text.trim(),
+      "Qty": _quantityTEController.text.trim(),
+      "TotalPrice": _totalPriceTEController.text.trim(),
+      // "CreatedDate": _createdDateTEController.text.trim(),
+      // "_id":
+    };
+
+    Response response = await post(
+      Uri.parse(
+        'https://crud.teamrabbil.com/api/v1/UpdateProduct/${widget.product.id}',
+      ),
+      headers: {'Content-type': 'application/json'},
+      body: jsonEncode(requestBody),
+    );
+
+    print(response.statusCode);
+    print(response.body);
+
+    _updateProductInProgress = false;
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Product has been updated')));
+    } else {}
   }
 
   @override
